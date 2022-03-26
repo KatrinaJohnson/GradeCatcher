@@ -294,9 +294,9 @@ while Playing_Game: # main game loop, when Playing_Game is set to False this end
                 Playing_Game = False #set the playing_game variable to False so that the game-loop ends
             if player_state == PLAYER_STATE_DEAD: #revive the player if any key is pressed after player is in dead state
                 actors,score_value,player_frozen,background_speed,player_state = Restart_Game(actors,score_value,player_frozen,background_speed,player_state)     
+            last_event = event #save last event to use in player control function/logic 
         if event.type == pygame.QUIT: # user closed the window to end the game instead of pressing the escape key
             Playing_Game = False #set the playing_game variable to False so that the game-loop ends
-        last_event = event #save last event to use in player control function/logic 
 
     # Start main game logic ----------------------------------------------------------------------------------------------------------------------------------------------------------------
     # -- Do Background and Score Logic
@@ -305,7 +305,7 @@ while Playing_Game: # main game loop, when Playing_Game is set to False this end
     ShowScore_Background(score_value) # Show score on top of the background
     
     # -- Do Player related functions
-    player_state, player_yPos, player_jump_speed = Control_Player(event, player_state, player_yPos, player_jump_speed) # moves the player
+    player_state, player_yPos, player_jump_speed = Control_Player(last_event, player_state, player_yPos, player_jump_speed) # moves the player
     player_img_ndx,player_state,background_speed,actors = Destroy_Player(player_image_index,player_state,background_speed, actors) # handles killing player and game over
     player_image_index,player_state,player_frozen = Draw_Player(player_image_index,player_state,player_frozen) # draw and animate the player 
 
